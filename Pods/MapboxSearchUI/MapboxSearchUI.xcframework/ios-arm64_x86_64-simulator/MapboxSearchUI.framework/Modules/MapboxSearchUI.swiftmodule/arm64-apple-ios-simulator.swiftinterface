@@ -1,0 +1,220 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MapboxSearchUI
+import CoreFoundation
+import CoreLocation
+import Foundation
+import MapKit
+@_exported import MapboxSearch
+import Swift
+import SystemConfiguration
+import UIKit.UIColor
+import UIKit.UIImage
+import UIKit
+import _Concurrency
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class MapboxPanelController : UIKit.UIViewController {
+  public enum State {
+    case opened
+    case collapsed
+    case hidden
+    public static func == (a: MapboxSearchUI.MapboxPanelController.State, b: MapboxSearchUI.MapboxPanelController.State) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public struct Configuration {
+    public var initialState: MapboxSearchUI.MapboxPanelController.State
+    public static let `default`: MapboxSearchUI.MapboxPanelController.Configuration
+    public init(state: MapboxSearchUI.MapboxPanelController.State? = nil)
+  }
+  @_Concurrency.MainActor(unsafe) public var dampingRatio: CoreGraphics.CGFloat
+  @_Concurrency.MainActor(unsafe) public var animationDuration: Swift.Double
+  @_Concurrency.MainActor(unsafe) public var state: MapboxSearchUI.MapboxPanelController.State {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public func setState(_ toState: MapboxSearchUI.MapboxPanelController.State, animated: Swift.Bool = true)
+  @_Concurrency.MainActor(unsafe) public init(rootViewController: UIKit.UIViewController, configuration: MapboxSearchUI.MapboxPanelController.Configuration = .default)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func loadView()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLayoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func willMove(toParent parent: UIKit.UIViewController?)
+  public enum HorizontalAlignment {
+    case leading
+    case center
+    case trailing
+    public static func == (a: MapboxSearchUI.MapboxPanelController.HorizontalAlignment, b: MapboxSearchUI.MapboxPanelController.HorizontalAlignment) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor(unsafe) public var horizontalAlignment: MapboxSearchUI.MapboxPanelController.HorizontalAlignment {
+    get
+    set
+  }
+  @objc deinit
+}
+extension MapboxSearchUI.MapboxPanelController : UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class CategoriesProvider {
+  final public let categories: [MapboxSearchUI.SearchCategory]
+  public static let shared: MapboxSearchUI.CategoriesProvider
+  @objc deinit
+}
+public struct SearchCategory : Swift.Codable, Swift.Hashable {
+  public let name: Swift.String
+  public var id: Swift.String {
+    get
+  }
+  public var icon: UIKit.UIImage? {
+    get
+  }
+  public static func makeServerCategory(name: Swift.String) -> MapboxSearchUI.SearchCategory?
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearchUI.SearchCategory, b: MapboxSearchUI.SearchCategory) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearchUI.SearchCategory {
+  public static let gas: MapboxSearchUI.SearchCategory
+  public static let parking: MapboxSearchUI.SearchCategory
+  public static let food: MapboxSearchUI.SearchCategory
+  public static let cafe: MapboxSearchUI.SearchCategory
+  public static let restaurant: MapboxSearchUI.SearchCategory
+  public static let bar: MapboxSearchUI.SearchCategory
+  public static let coffeeShop: MapboxSearchUI.SearchCategory
+  public static let hotel: MapboxSearchUI.SearchCategory
+  public static let gasStation: MapboxSearchUI.SearchCategory
+  public static let chargingStation: MapboxSearchUI.SearchCategory
+  public static let busStation: MapboxSearchUI.SearchCategory
+  public static let railwayStation: MapboxSearchUI.SearchCategory
+  public static let shoppingMall: MapboxSearchUI.SearchCategory
+  public static let grocery: MapboxSearchUI.SearchCategory
+  public static let clothingStore: MapboxSearchUI.SearchCategory
+  public static let pharmacy: MapboxSearchUI.SearchCategory
+  public static let museum: MapboxSearchUI.SearchCategory
+  public static let park: MapboxSearchUI.SearchCategory
+  public static let cinema: MapboxSearchUI.SearchCategory
+  public static let fitnessCentre: MapboxSearchUI.SearchCategory
+  public static let nightclub: MapboxSearchUI.SearchCategory
+  public static let autoRepair: MapboxSearchUI.SearchCategory
+  public static let atm: MapboxSearchUI.SearchCategory
+  public static let hospital: MapboxSearchUI.SearchCategory
+  public static let emergencyRoom: MapboxSearchUI.SearchCategory
+}
+public class DefaultCategoryDataProvider : MapboxSearchUI.CategoryDataProvider {
+  public static let minCategoriesCount: Swift.Int
+  public var categorySlots: [MapboxSearchUI.SearchCategory] {
+    get
+  }
+  public var categoryList: [MapboxSearchUI.SearchCategory]
+  public init()
+  @objc deinit
+}
+public protocol SearchControllerDelegate : AnyObject {
+  func searchResultSelected(_ searchResult: MapboxSearch.SearchResult)
+  func categorySearchResultsReceived(category: MapboxSearchUI.SearchCategory, results: [MapboxSearch.SearchResult])
+  func userFavoriteSelected(_ userFavorite: MapboxSearch.FavoriteRecord)
+  func shouldCollapseForSelection(_ searchResult: MapboxSearch.SearchResult) -> Swift.Bool
+}
+extension MapboxSearchUI.SearchControllerDelegate {
+  public func shouldCollapseForSelection(_ searchResult: MapboxSearch.SearchResult) -> Swift.Bool
+}
+@objc @_Concurrency.MainActor(unsafe) public class MapboxSearchController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public var searchBarPlaceholder: Swift.String? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var favoritesProvider: MapboxSearch.FavoritesProvider
+  @_Concurrency.MainActor(unsafe) public var historyProvider: MapboxSearch.HistoryProvider
+  @_Concurrency.MainActor(unsafe) public var categorySearchEngine: MapboxSearch.CategorySearchEngine
+  @_Concurrency.MainActor(unsafe) public var searchEngine: MapboxSearch.SearchEngine {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var searchOptions: MapboxSearch.SearchOptions?
+  @_Concurrency.MainActor(unsafe) public var categorySearchOptions: MapboxSearch.SearchOptions?
+  @_Concurrency.MainActor(unsafe) public var configuration: MapboxSearchUI.Configuration {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) weak public var delegate: MapboxSearchUI.SearchControllerDelegate?
+  @_Concurrency.MainActor(unsafe) required public init(accessToken: Swift.String, configuration: MapboxSearchUI.Configuration = Configuration())
+  @_Concurrency.MainActor(unsafe) required public init(configuration: MapboxSearchUI.Configuration = Configuration())
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @objc deinit
+}
+extension MapboxSearchUI.MapboxSearchController {
+  public enum PresentationStyle {
+    case panel
+    public static func == (a: MapboxSearchUI.MapboxSearchController.PresentationStyle, b: MapboxSearchUI.MapboxSearchController.PresentationStyle) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor(unsafe) public var panelController: MapboxSearchUI.MapboxPanelController? {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public func present(in rootVC: UIKit.UIViewController, presentationStyle: MapboxSearchUI.MapboxSearchController.PresentationStyle = .panel)
+  @_Concurrency.MainActor(unsafe) public func resetSearchUI(animated: Swift.Bool, collapse: MapboxSearchUI.MapboxPanelController.State? = .collapsed)
+}
+extension MapboxSearchUI.MapboxSearchController : MapboxSearch.SearchEngineDelegate {
+  @_Concurrency.MainActor(unsafe) public func suggestionsUpdated(suggestions: [MapboxSearch.SearchSuggestion], searchEngine: MapboxSearch.SearchEngine)
+  @_Concurrency.MainActor(unsafe) public func offlineResultsUpdated(_ results: [MapboxSearch.SearchResult], suggestions: [MapboxSearch.SearchSuggestion], searchEngine: MapboxSearch.SearchEngine)
+  @_Concurrency.MainActor(unsafe) public func resultResolved(result: MapboxSearch.SearchResult, searchEngine: MapboxSearch.SearchEngine)
+  @_Concurrency.MainActor(unsafe) public func searchErrorHappened(searchError: MapboxSearch.SearchError, searchEngine: MapboxSearch.SearchEngine)
+}
+extension MapboxSearch.Maki {
+  public var xcassetName: Swift.String {
+    get
+  }
+}
+public struct Style {
+  public init(primaryTextColor: UIKit.UIColor? = nil, primaryBackgroundColor: UIKit.UIColor? = nil, secondaryBackgroundColor: UIKit.UIColor? = nil, separatorColor: UIKit.UIColor? = nil, primaryAccentColor: UIKit.UIColor? = nil, primaryInactiveElementColor: UIKit.UIColor? = nil, panelShadowColor: UIKit.UIColor? = nil, panelHandlerColor: UIKit.UIColor? = nil, iconTintColor: UIKit.UIColor? = nil, activeSegmentTitleColor: UIKit.UIColor? = nil)
+  public static let `default`: MapboxSearchUI.Style
+  public var primaryTextColor: UIKit.UIColor
+  public var primaryBackgroundColor: UIKit.UIColor
+  public var secondaryBackgroundColor: UIKit.UIColor
+  public var separatorColor: UIKit.UIColor
+  public var primaryAccentColor: UIKit.UIColor
+  public var primaryInactiveElementColor: UIKit.UIColor
+  public var panelShadowColor: UIKit.UIColor
+  public var panelHandlerColor: UIKit.UIColor
+  public var iconTintColor: UIKit.UIColor
+  public var activeSegmentTitleColor: UIKit.UIColor
+}
+public struct Configuration {
+  public init(allowsFeedbackUI: Swift.Bool = true, categoryDataProvider: MapboxSearchUI.CategoryDataProvider = DefaultCategoryDataProvider(), locationProvider: MapboxSearch.LocationProvider? = DefaultLocationProvider(), hideCategorySlots: Swift.Bool = false, style: MapboxSearchUI.Style = .default)
+  public var allowsFeedbackUI: Swift.Bool
+  public var categoryDataProvider: MapboxSearchUI.CategoryDataProvider
+  public var locationProvider: MapboxSearch.LocationProvider?
+  public var hideCategorySlots: Swift.Bool
+  public var style: MapboxSearchUI.Style
+}
+extension Foundation.NSNotification.Name {
+  public static let ReachabilityStatusChanged: Foundation.Notification.Name
+}
+public class ConstantCategoryDataProvider : MapboxSearchUI.CategoryDataProvider {
+  public var categorySlots: [MapboxSearchUI.SearchCategory]
+  public var categoryList: [MapboxSearchUI.SearchCategory]
+  public init(slots: [MapboxSearchUI.SearchCategory]?, list: [MapboxSearchUI.SearchCategory]? = nil)
+  @objc deinit
+}
+public protocol CategoryDataProvider {
+  var categorySlots: [MapboxSearchUI.SearchCategory] { get }
+  var categoryList: [MapboxSearchUI.SearchCategory] { get }
+}
+extension MapboxSearchUI.MapboxPanelController.State : Swift.Equatable {}
+extension MapboxSearchUI.MapboxPanelController.State : Swift.Hashable {}
+extension MapboxSearchUI.MapboxPanelController.HorizontalAlignment : Swift.Equatable {}
+extension MapboxSearchUI.MapboxPanelController.HorizontalAlignment : Swift.Hashable {}
+extension MapboxSearchUI.MapboxSearchController.PresentationStyle : Swift.Equatable {}
+extension MapboxSearchUI.MapboxSearchController.PresentationStyle : Swift.Hashable {}

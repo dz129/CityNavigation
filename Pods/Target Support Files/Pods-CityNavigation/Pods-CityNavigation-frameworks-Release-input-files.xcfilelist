@@ -1,0 +1,15 @@
+${PODS_ROOT}/Target Support Files/Pods-CityNavigation/Pods-CityNavigation-frameworks.sh
+${BUILT_PRODUCTS_DIR}/MapboxCoreNavigation/MapboxCoreNavigation.framework
+${BUILT_PRODUCTS_DIR}/MapboxDirections/MapboxDirections.framework
+${BUILT_PRODUCTS_DIR}/MapboxMaps/MapboxMaps.framework
+${BUILT_PRODUCTS_DIR}/MapboxNavigation/MapboxNavigation.framework
+${BUILT_PRODUCTS_DIR}/MapboxSpeech/MapboxSpeech.framework
+${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework
+${BUILT_PRODUCTS_DIR}/Solar-dev/Solar.framework
+${BUILT_PRODUCTS_DIR}/Turf/Turf.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxCommon/MapboxCommon.framework/MapboxCommon
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxCoreMaps/MapboxCoreMaps.framework/MapboxCoreMaps
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework/MapboxMobileEvents
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxNavigationNative/MapboxNavigationNative.framework/MapboxNavigationNative
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxSearch/MapboxSearch.framework/MapboxSearch
+${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxSearchUI/MapboxSearchUI.framework/MapboxSearchUI

@@ -1,0 +1,1570 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MapboxSearch
+import Contacts
+import CoreGraphics
+import CoreLocation
+import Foundation
+import MapKit
+@_exported import MapboxCommon
+import Swift
+import UIKit
+import _Concurrency
+extension MapboxSearch.PlaceAutocomplete {
+  public enum PlaceType : Swift.Equatable {
+    case POI
+    case administrativeUnit(MapboxSearch.AdministrativeUnit)
+    public static var allTypes: [MapboxSearch.PlaceAutocomplete.PlaceType] {
+      get
+    }
+    public static func == (a: MapboxSearch.PlaceAutocomplete.PlaceType, b: MapboxSearch.PlaceAutocomplete.PlaceType) -> Swift.Bool
+  }
+}
+@_hasMissingDesignatedInitializers public class FeedbackManager {
+  @objc deinit
+}
+extension MapboxSearch.FeedbackManager {
+  public func sendEvent(_ event: MapboxSearch.FeedbackEvent, autoFlush: Swift.Bool = true) throws
+}
+@_hasMissingDesignatedInitializers final public class AddressAutofill {
+  convenience public init(accessToken: Swift.String? = nil, locationProvider: MapboxSearch.LocationProvider? = DefaultLocationProvider())
+  @objc deinit
+}
+extension MapboxSearch.AddressAutofill {
+  final public func suggestions(for query: MapboxSearch.AddressAutofill.Query, with options: MapboxSearch.AddressAutofill.Options? = nil, completion: @escaping (Swift.Result<[MapboxSearch.AddressAutofill.Suggestion], Swift.Error>) -> Swift.Void)
+  final public func suggestions(for coordinate: CoreLocation.CLLocationCoordinate2D, with options: MapboxSearch.AddressAutofill.Options? = nil, completion: @escaping (Swift.Result<[MapboxSearch.AddressAutofill.Suggestion], Swift.Error>) -> Swift.Void)
+  final public func select(suggestion: MapboxSearch.AddressAutofill.Suggestion, completion: @escaping (Swift.Result<MapboxSearch.AddressAutofill.Result, Swift.Error>) -> Swift.Void)
+}
+extension MapboxSearch.Discover {
+  public struct Query {
+  }
+}
+extension MapboxSearch.Discover.Query {
+  public enum Category {
+    public static var restaurants: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var bars: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var coffeeShopCafe: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var hotel: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var gasStation: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var evChargingStation: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var parking: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var busStation: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var railwayStation: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var shoppingMalls: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var supermarketGrocery: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var clothingStore: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var pharmacy: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var museums: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var parks: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var movieTheaters: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var gymFitness: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var nightClubs: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var autoRepairMechanic: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var atm: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var hospital: MapboxSearch.Discover.Query {
+      get
+    }
+    public static var emergencyRoom: MapboxSearch.Discover.Query {
+      get
+    }
+    public static func canonicalName(_ canonicalName: Swift.String) -> MapboxSearch.Discover.Query
+  }
+}
+@_hasMissingDesignatedInitializers open class CodablePersistentService<Record> where Record : Swift.Decodable, Record : Swift.Encodable {
+  public func loadData() -> Record?
+  @discardableResult
+  public func saveData(_ record: Record) -> Swift.Bool
+  public func clear()
+  @objc deinit
+}
+public protocol IndexableDataProvider : MapboxSearch.IndexableDataResolver {
+  static var providerIdentifier: Swift.String { get }
+  func registerProviderInteractor(interactor: MapboxSearch.RecordsProviderInteractor)
+  func resolve(suggestion: MapboxSearch.SearchResultSuggestion, completion: @escaping (MapboxSearch.SearchResult?) -> Swift.Void)
+}
+public protocol SearchCategorySuggestion : MapboxSearch.SearchSuggestion {
+}
+public enum HighlightsCalculator {
+  public static func calculate(for query: Swift.String, in name: Swift.String) -> [Foundation.NSRange]
+}
+extension MapboxSearch.PlaceAutocomplete {
+  public struct Options {
+    public let countries: [MapboxSearch.Country]
+    public let language: MapboxSearch.Language
+    public let types: [MapboxSearch.PlaceAutocomplete.PlaceType]
+    public let navigationProfile: MapboxSearch.SearchNavigationProfile?
+    public init(countries: [MapboxSearch.Country] = [], language: MapboxSearch.Language? = nil, types: [MapboxSearch.PlaceAutocomplete.PlaceType] = [], navigationProfile: MapboxSearch.SearchNavigationProfile? = nil)
+  }
+}
+public struct SearchResultMetadata : Swift.Codable, Swift.Hashable {
+  public var data: [Swift.String : Swift.String]
+  public var primaryImage: MapboxSearch.Image?
+  public var otherImages: [MapboxSearch.Image]?
+  public var phone: Swift.String?
+  public var website: Foundation.URL?
+  public var reviewCount: Swift.Int?
+  public var averageRating: Swift.Double?
+  public var openHours: MapboxSearch.OpenHours?
+  public subscript(key: Swift.String) -> Swift.String? {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.SearchResultMetadata, b: MapboxSearch.SearchResultMetadata) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearch.SearchError : Foundation.CustomNSError {
+  public static var errorDomain: Swift.String
+  public var errorCode: Swift.Int {
+    get
+  }
+  public var errorUserInfo: [Swift.String : Any] {
+    get
+  }
+}
+public class Route : Swift.Codable, Swift.Hashable {
+  public var coordinates: [CoreLocation.CLLocationCoordinate2D] {
+    get
+  }
+  public init(coordinates: [CoreLocation.CLLocationCoordinate2D])
+  public static func == (lhs: MapboxSearch.Route, rhs: MapboxSearch.Route) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+}
+public enum SearchNavigationProfile : Swift.Hashable {
+  case driving
+  case cycling
+  case walking
+  case custom(Swift.String)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.SearchNavigationProfile, b: MapboxSearch.SearchNavigationProfile) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum SearchQueryType {
+  case country
+  case region
+  case postcode
+  case district
+  case place
+  case locality
+  case neighborhood
+  case address
+  case poi
+  case street
+  case category
+  public static func == (a: MapboxSearch.SearchQueryType, b: MapboxSearch.SearchQueryType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class LocalDataProvider<Record> : MapboxSearch.IndexableDataProvider where Record : MapboxSearch.IndexableRecord, Record : MapboxSearch.SearchResult, Record : Swift.Decodable, Record : Swift.Encodable {
+  public static var updateNotificationName: Foundation.Notification.Name {
+    get
+  }
+  public static var providerIdentifier: Swift.String {
+    get
+  }
+  public var recordsMap: [Swift.String : Record]
+  final public let persistentService: MapboxSearch.CodablePersistentService<[Record]>?
+  public init()
+  public func registerProviderInteractor(interactor providerInteractor: MapboxSearch.RecordsProviderInteractor)
+  public func resolve(suggestion: MapboxSearch.SearchResultSuggestion, completion: (MapboxSearch.SearchResult?) -> Swift.Void)
+  public func add(record: Record)
+  public func update(record: Record)
+  public func delete(recordId: Swift.String)
+  public func deleteAll()
+  @objc deinit
+}
+public protocol IndexableRecord {
+  var id: Swift.String { get }
+  var name: Swift.String { get }
+  var coordinate: CoreLocation.CLLocationCoordinate2D { get }
+  var address: MapboxSearch.Address? { get }
+  var additionalTokens: Swift.Set<Swift.String>? { get }
+}
+public enum AddOfflineRegionError : Swift.Error {
+  case addOfflineRegionFailure(Swift.String)
+}
+public typealias FavoritesProvider = MapboxSearch.LocalDataProvider<MapboxSearch.FavoriteRecord>
+public typealias HistoryProvider = MapboxSearch.LocalDataProvider<MapboxSearch.HistoryRecord>
+@_hasMissingDesignatedInitializers public class ServiceProvider {
+  public static var customBaseURL: Swift.String? {
+    get
+  }
+  final public let localFavoritesProvider: MapboxSearch.FavoritesProvider
+  final public let localHistoryProvider: MapboxSearch.HistoryProvider
+  final public let eventsManager: MapboxSearch.EventsManager
+  public var feedbackManager: MapboxSearch.FeedbackManager {
+    get
+  }
+  public static let shared: MapboxSearch.ServiceProvider
+  @objc deinit
+}
+public struct BoundingBox : Swift.Codable, Swift.Hashable {
+  public var southWest: CoreLocation.CLLocationCoordinate2D {
+    get
+    set
+  }
+  public var northEast: CoreLocation.CLLocationCoordinate2D {
+    get
+    set
+  }
+  public init?(from coordinates: [CoreLocation.CLLocationCoordinate2D]?)
+  public init(_ southWest: CoreLocation.CLLocationCoordinate2D, _ northEast: CoreLocation.CLLocationCoordinate2D)
+  public func contains(_ coordinate: CoreLocation.CLLocationCoordinate2D, ignoreBoundary: Swift.Bool = true) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.BoundingBox, b: MapboxSearch.BoundingBox) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearch.Discover {
+  public struct Options {
+    public let limit: Swift.Int
+    public let language: MapboxSearch.Language
+    public init(limit: Swift.Int = 10, language: MapboxSearch.Language? = nil)
+  }
+}
+@_hasMissingDesignatedInitializers public class SearchResponseInfo {
+  final public let suggestion: MapboxSearch.SearchSuggestion?
+  final public let options: MapboxSearch.SearchOptions
+  @objc deinit
+}
+public struct HistoryRecord : MapboxSearch.IndexableRecord, MapboxSearch.SearchResult, Swift.Codable, Swift.Hashable {
+  public var iconName: Swift.String?
+  public enum HistoryType : Swift.Int, Swift.Codable {
+    case result
+    case query
+    case category
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public var id: Swift.String {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public let serverIndex: Swift.Int?
+  public let accuracy: MapboxSearch.SearchResultAccuracy?
+  public var matchingName: Swift.String? {
+    get
+  }
+  public var descriptionText: Swift.String? {
+    get
+  }
+  public var coordinate: CoreLocation.CLLocationCoordinate2D {
+    get
+  }
+  public var timestamp: Foundation.Date {
+    get
+  }
+  public var historyType: MapboxSearch.HistoryRecord.HistoryType {
+    get
+  }
+  public var type: MapboxSearch.SearchResultType {
+    get
+  }
+  public var estimatedTime: Foundation.Measurement<Foundation.UnitDuration>?
+  public var metadata: MapboxSearch.SearchResultMetadata?
+  public var address: MapboxSearch.Address?
+  public var additionalTokens: Swift.Set<Swift.String>?
+  public var categories: [Swift.String]?
+  public let searchRequest: MapboxSearch.SearchRequestOptions
+  public var routablePoints: [MapboxSearch.RoutablePoint]?
+  public init(id: Swift.String = UUID().uuidString, name: Swift.String, matchingName: Swift.String?, serverIndex: Swift.Int?, accuracy: MapboxSearch.SearchResultAccuracy?, coordinate: CoreLocation.CLLocationCoordinate2D, timestamp: Foundation.Date = Date(), historyType: MapboxSearch.HistoryRecord.HistoryType, type: MapboxSearch.SearchResultType, address: MapboxSearch.Address?, metadata: MapboxSearch.SearchResultMetadata? = nil, categories: [Swift.String]? = nil, searchRequest: MapboxSearch.SearchRequestOptions, routablePoints: [MapboxSearch.RoutablePoint]? = nil)
+  public init(historyType: MapboxSearch.HistoryRecord.HistoryType = .result, searchResult: MapboxSearch.SearchResult, timestamp: Foundation.Date = Date())
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.HistoryRecord, b: MapboxSearch.HistoryRecord) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct SearchRequestOptions : Swift.Equatable, Swift.Hashable, Swift.Codable {
+  public let query: Swift.String
+  public var proximity: CoreLocation.CLLocationCoordinate2D? {
+    get
+  }
+  public init(query: Swift.String, proximity: CoreLocation.CLLocationCoordinate2D?)
+  public static func == (a: MapboxSearch.SearchRequestOptions, b: MapboxSearch.SearchRequestOptions) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct AdministrativeUnit : Swift.Equatable {
+  public init(rawValue: MapboxSearch.SearchQueryType)
+  public static let country: MapboxSearch.AdministrativeUnit
+  public static let region: MapboxSearch.AdministrativeUnit
+  public static let postcode: MapboxSearch.AdministrativeUnit
+  public static let district: MapboxSearch.AdministrativeUnit
+  public static let place: MapboxSearch.AdministrativeUnit
+  public static let locality: MapboxSearch.AdministrativeUnit
+  public static let neighborhood: MapboxSearch.AdministrativeUnit
+  public static let street: MapboxSearch.AdministrativeUnit
+  public static let address: MapboxSearch.AdministrativeUnit
+  public static let city: MapboxSearch.AdministrativeUnit
+  public static let prefecture: MapboxSearch.AdministrativeUnit
+  public static let oaza: MapboxSearch.AdministrativeUnit
+  public static let chome: MapboxSearch.AdministrativeUnit
+  public static var all: [MapboxSearch.AdministrativeUnit] {
+    get
+  }
+  public static func == (a: MapboxSearch.AdministrativeUnit, b: MapboxSearch.AdministrativeUnit) -> Swift.Bool
+}
+public enum TileRegionError : Foundation.LocalizedError, Swift.Equatable {
+  case canceled(Swift.String)
+  case doesNotExist(Swift.String)
+  case tilesetDescriptor(Swift.String)
+  case diskFull(Swift.String)
+  case other(Swift.String)
+  case tileCountExceeded(Swift.String)
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public static func == (a: MapboxSearch.TileRegionError, b: MapboxSearch.TileRegionError) -> Swift.Bool
+}
+public struct SearchNavigationOptions : Swift.Hashable {
+  public enum ETAType : Swift.CaseIterable {
+    case navigation
+    case none
+    public static func == (a: MapboxSearch.SearchNavigationOptions.ETAType, b: MapboxSearch.SearchNavigationOptions.ETAType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public typealias AllCases = [MapboxSearch.SearchNavigationOptions.ETAType]
+    public static var allCases: [MapboxSearch.SearchNavigationOptions.ETAType] {
+      get
+    }
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var profile: MapboxSearch.SearchNavigationProfile
+  public var etaType: MapboxSearch.SearchNavigationOptions.ETAType
+  public init(profile: MapboxSearch.SearchNavigationProfile, etaType: MapboxSearch.SearchNavigationOptions.ETAType = .none)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.SearchNavigationOptions, b: MapboxSearch.SearchNavigationOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension MapboxSearch.AddressAutofill {
+  public struct Suggestion {
+    public let name: Swift.String
+    public let formattedAddress: Swift.String
+    public let coordinate: CoreLocation.CLLocationCoordinate2D
+  }
+}
+public protocol SearchCancelable : AnyObject {
+  func cancel()
+}
+public enum SearchAddressType : Swift.String, Swift.Hashable, Swift.Codable {
+  case address
+  case place
+  case street
+  case postcode
+  case country
+  case region
+  case district
+  case locality
+  case neighborhood
+  case block
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol SearchQuerySuggestion : MapboxSearch.SearchSuggestion {
+}
+extension MapboxSearch.Discover {
+  public struct Address {
+    public let houseNumber: Swift.String?
+    public let street: Swift.String?
+    public let neighborhood: Swift.String?
+    public let locality: Swift.String?
+    public let postcode: Swift.String?
+    public let place: Swift.String?
+    public let district: Swift.String?
+    public let region: Swift.String?
+    public let country: Swift.String?
+    public let countryISO1: Swift.String?
+    public let countryISO2: Swift.String?
+  }
+}
+extension MapboxSearch.Discover.Address {
+  public var postalAddress: Contacts.CNPostalAddress {
+    get
+  }
+}
+public class SearchTileStore {
+  final public let defaultEndPoint: Swift.String
+  public var commonTileStore: MapboxCommon.TileStore {
+    get
+  }
+  public init(accessToken: Swift.String)
+  convenience public init() throws
+  public init(commonTileStore: MapboxCommon.TileStore, accessToken: Swift.String)
+  convenience public init(commonTileStore: MapboxCommon.TileStore) throws
+  public init(accessToken: Swift.String, path: Swift.String)
+  public func loadTileRegion(id: Swift.String, options: MapboxCommon.TileRegionLoadOptions)
+  public func loadTileRegion(id: Swift.String, options: MapboxCommon.TileRegionLoadOptions, progress: MapboxCommon.TileRegionLoadProgressCallback? = nil, completion: ((Swift.Result<MapboxCommon.TileRegion, MapboxSearch.TileRegionError>) -> Swift.Void)?) -> MapboxSearch.SearchCancelable
+  public func removeTileRegion(id: Swift.String)
+  public func removeTileRegion(id: Swift.String, completion: ((Swift.Result<MapboxCommon.TileRegion, MapboxSearch.TileRegionError>) -> Swift.Void)?)
+  @objc deinit
+}
+extension MapboxSearch.AddressAutofill {
+  public struct Result {
+    public let name: Swift.String
+    public let formattedAddress: Swift.String
+    public let coordinate: CoreLocation.CLLocationCoordinate2D
+    public let addressComponents: MapboxSearch.NonEmptyArray<MapboxSearch.AddressAutofill.AddressComponent>
+  }
+}
+public protocol IndexableDataResolver {
+  static var providerIdentifier: Swift.String { get }
+  func resolve(suggestion: MapboxSearch.SearchResultSuggestion, completion: @escaping (MapboxSearch.SearchResult?) -> Swift.Void)
+}
+public protocol SearchEngineDelegate : AnyObject {
+  func suggestionsUpdated(suggestions: [MapboxSearch.SearchSuggestion], searchEngine: MapboxSearch.SearchEngine)
+  func offlineResultsUpdated(_ results: [MapboxSearch.SearchResult], suggestions: [MapboxSearch.SearchSuggestion], searchEngine: MapboxSearch.SearchEngine)
+  func resultResolved(result: MapboxSearch.SearchResult, searchEngine: MapboxSearch.SearchEngine)
+  func resultsResolved(results: [MapboxSearch.SearchResult], searchEngine: MapboxSearch.SearchEngine)
+  func searchErrorHappened(searchError: MapboxSearch.SearchError, searchEngine: MapboxSearch.SearchEngine)
+}
+extension MapboxSearch.SearchEngineDelegate {
+  public func resultsResolved(results: [MapboxSearch.SearchResult], searchEngine: MapboxSearch.SearchEngine)
+  public func offlineResultsUpdated(_ results: [MapboxSearch.SearchResult], suggestions: [MapboxSearch.SearchSuggestion], searchEngine: MapboxSearch.SearchEngine)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class SearchEngine : MapboxSearch.AbstractSearchEngine {
+  public enum OfflineMode {
+    case enabled
+    case disabled
+    public static func == (a: MapboxSearch.SearchEngine.OfflineMode, b: MapboxSearch.SearchEngine.OfflineMode) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var offlineMode: MapboxSearch.SearchEngine.OfflineMode {
+    get
+  }
+  public func setOfflineMode(_ mode: MapboxSearch.SearchEngine.OfflineMode, completion: (() -> Swift.Void)?)
+  weak public var delegate: MapboxSearch.SearchEngineDelegate?
+  public var suggestions: [MapboxSearch.SearchSuggestion] {
+    get
+  }
+  public var responseInfo: MapboxSearch.SearchResponseInfo? {
+    get
+  }
+  public var query: Swift.String {
+    get
+    set
+  }
+  @objc deinit
+}
+extension MapboxSearch.SearchEngine {
+  public func search(query: Swift.String, options: MapboxSearch.SearchOptions? = nil)
+  public func select(suggestion: MapboxSearch.SearchSuggestion)
+  public func select(suggestions: [MapboxSearch.SearchSuggestion])
+  public func reverseGeocoding(options: MapboxSearch.ReverseGeocodingOptions, completion: @escaping (Swift.Result<[MapboxSearch.SearchResult], MapboxSearch.SearchError>) -> Swift.Void)
+}
+extension MapboxSearch.SearchEngine : MapboxSearch.IndexableDataResolver {
+  public static var providerIdentifier: Swift.String {
+    get
+  }
+  public func resolve(suggestion: MapboxSearch.SearchResultSuggestion, completion: @escaping (MapboxSearch.SearchResult?) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers public class FeedbackEvent {
+  public enum Reason : Swift.String, Swift.CaseIterable {
+    case name
+    case address
+    case location
+    case missingResult
+    case other
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [MapboxSearch.FeedbackEvent.Reason]
+    public typealias RawValue = Swift.String
+    public static var allCases: [MapboxSearch.FeedbackEvent.Reason] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public var reason: Swift.String?
+  public var text: Swift.String?
+  public var keyboardLocale: Swift.String?
+  public var deviceOrientation: Swift.String?
+  public var screenshotData: Foundation.Data?
+  public var sessionId: Swift.String? {
+    get
+    set
+  }
+  @objc deinit
+}
+extension MapboxSearch.FeedbackEvent {
+  convenience public init(userRecord: MapboxSearch.IndexableRecord, reason: Swift.String?, text: Swift.String?)
+  convenience public init(record: MapboxSearch.SearchResult, reason: Swift.String?, text: Swift.String?)
+  convenience public init(record: MapboxSearch.SearchResult, reason: MapboxSearch.FeedbackEvent.Reason, text: Swift.String?)
+  convenience public init(suggestion: MapboxSearch.SearchSuggestion, reason: Swift.String?, text: Swift.String?)
+  convenience public init(response: MapboxSearch.SearchResponseInfo, text: Swift.String?)
+}
+public struct Country : Swift.Equatable {
+  public let countryCode: Swift.String
+  public init?(countryCode: Swift.String)
+  public static func == (a: MapboxSearch.Country, b: MapboxSearch.Country) -> Swift.Bool
+}
+public enum LogCategory {
+  case `default`
+  case userRecords
+  case telemetry
+  public static func == (a: MapboxSearch.LogCategory, b: MapboxSearch.LogCategory) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class _Logger {
+  public static let searchSDK: MapboxSearch._Logger
+  public var level: MapboxSearch.LoggerLevel
+  public func level(for category: MapboxSearch.LogCategory) -> MapboxSearch.LoggerLevel
+  public func set(level: MapboxSearch.LoggerLevel, for category: MapboxSearch.LogCategory)
+  public func debug(_ message: Swift.String, category: MapboxSearch.LogCategory = .default)
+  public func info(_ message: Swift.String, category: MapboxSearch.LogCategory = .default)
+  public func warning(_ message: Swift.String, category: MapboxSearch.LogCategory = .default)
+  public func error(_ message: Swift.String, category: MapboxSearch.LogCategory = .default)
+  public func log(level logLevel: MapboxSearch.LoggerLevel, _ message: Swift.String, category: MapboxSearch.LogCategory = .default)
+  @objc deinit
+}
+public enum LoggerLevel : Swift.Comparable {
+  case debug
+  case info
+  case warning
+  case error
+  case disabled
+  public static func == (a: MapboxSearch.LoggerLevel, b: MapboxSearch.LoggerLevel) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func < (a: MapboxSearch.LoggerLevel, b: MapboxSearch.LoggerLevel) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Image : Swift.Codable, Swift.Hashable {
+  public let sizes: [MapboxSearch.Image.SizedImage]
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.Image, b: MapboxSearch.Image) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearch.Image {
+  public struct SizedImage : Swift.Codable, Swift.Hashable {
+    public var url: Foundation.URL?
+    public var size: CoreGraphics.CGSize
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: MapboxSearch.Image.SizedImage, b: MapboxSearch.Image.SizedImage) -> Swift.Bool
+    public func encode(to encoder: Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+extension MapboxSearch.AddressAutofill {
+  public struct Options {
+    public let countries: [MapboxSearch.Country]
+    public let language: MapboxSearch.Language
+    public init(countries: [MapboxSearch.Country] = [], language: MapboxSearch.Language? = nil)
+  }
+}
+public struct Language : Swift.Equatable {
+  public let languageCode: Swift.String
+  public init?(languageCode: Swift.String)
+  public init?(locale: Foundation.Locale)
+  public static func == (a: MapboxSearch.Language, b: MapboxSearch.Language) -> Swift.Bool
+}
+extension MapboxSearch.Discover {
+  public struct Result {
+    public let name: Swift.String
+    public let address: MapboxSearch.AddressComponents
+    public let coordinate: CoreLocation.CLLocationCoordinate2D
+    public let routablePoints: MapboxSearch.NonEmptyArray<MapboxSearch.RoutablePoint>?
+    public let categories: [Swift.String]
+    public let makiIcon: Swift.String?
+  }
+}
+public enum SearchSuggestType : Swift.Codable, Swift.Hashable {
+  case address(subtypes: [MapboxSearch.SearchAddressType])
+  case POI
+  case category
+  case query
+  public var addressSubtypes: [MapboxSearch.SearchAddressType]? {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.SearchSuggestType, b: MapboxSearch.SearchSuggestType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol AbstractSearchEngineConfiguration {
+  var locationProvider: MapboxSearch.LocationProvider? { get set }
+  static var `default`: Self { get }
+}
+@_hasMissingDesignatedInitializers public class AbstractSearchEngine {
+  final public let supportSBS: Swift.Bool
+  final public let locationProvider: MapboxSearch.LocationProvider?
+  final public let feedbackManager: MapboxSearch.FeedbackManager
+  public var offlineManager: MapboxSearch.SearchOfflineManager {
+    get
+  }
+  public var defaultSearchOptions: MapboxSearch.SearchOptions
+  convenience public init(accessToken: Swift.String? = nil, locationProvider: MapboxSearch.LocationProvider? = DefaultLocationProvider(), defaultSearchOptions: MapboxSearch.SearchOptions = SearchOptions(), supportSBS: Swift.Bool = false)
+  public func register(dataProvider: MapboxSearch.IndexableDataProvider, priority: Swift.Int) throws -> MapboxSearch.RecordsProviderInteractor
+  @objc deinit
+}
+extension MapboxSearch.AddressAutofill {
+  public struct AddressComponent : Swift.Equatable {
+    public let kind: MapboxSearch.AddressAutofill.AddressComponent.Kind
+    public let value: Swift.String
+    public static func == (a: MapboxSearch.AddressAutofill.AddressComponent, b: MapboxSearch.AddressAutofill.AddressComponent) -> Swift.Bool
+  }
+}
+extension MapboxSearch.AddressAutofill.AddressComponent {
+  public enum Kind : Swift.String, Swift.Hashable, Swift.Codable, Swift.CaseIterable {
+    case houseNumber
+    case street
+    case neighborhood
+    case locality
+    case postcode
+    case place
+    case district
+    case region
+    case country
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [MapboxSearch.AddressAutofill.AddressComponent.Kind]
+    public typealias RawValue = Swift.String
+    public static var allCases: [MapboxSearch.AddressAutofill.AddressComponent.Kind] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CategorySearchEngine : MapboxSearch.AbstractSearchEngine {
+  public func search(categoryName: Swift.String, options: MapboxSearch.SearchOptions? = nil, completionQueue: Dispatch.DispatchQueue = .main, completion: @escaping (Swift.Result<[MapboxSearch.SearchResult], MapboxSearch.SearchError>) -> Swift.Void)
+  @objc deinit
+}
+extension MapboxSearch.PlaceAutocomplete {
+  public struct Result {
+    public let name: Swift.String
+    public let description: Swift.String?
+    public let type: MapboxSearch.SearchResultType
+    public let coordinate: CoreLocation.CLLocationCoordinate2D
+    public let iconName: Swift.String?
+    public let distance: CoreLocation.CLLocationDistance?
+    public let estimatedTime: Foundation.Measurement<Foundation.UnitDuration>?
+    public let routablePoints: [MapboxSearch.RoutablePoint]
+    public let categories: [Swift.String]
+    public let address: MapboxSearch.AddressComponents?
+    public let phone: Swift.String?
+    public let website: Foundation.URL?
+    public let reviewCount: Swift.Int?
+    public let averageRating: Swift.Double?
+    public let openHours: MapboxSearch.OpenHours?
+    public let primaryImage: MapboxSearch.Image?
+    public var otherImages: [MapboxSearch.Image]?
+  }
+}
+public let mapboxSearchErrorDomain: Swift.String
+public enum SearchError : Swift.Error {
+  case generic(code: Swift.Int, domain: Swift.String, message: Swift.String)
+  case incorrectEventTemplate
+  case incorrectSearchResultForFeedback
+  case searchRequestFailed(reason: Swift.Error)
+  case categorySearchRequestFailed(reason: Swift.Error)
+  case failedToRegisterDataProvider(reason: Swift.Error, dataProvider: MapboxSearch.IndexableDataProvider)
+  case responseProcessingFailed
+  case searchRequestCancelled
+  case internalSearchRequestError(message: Swift.String)
+  case resultResolutionFailed(MapboxSearch.SearchResultSuggestion)
+  case dataResolverNotFound(MapboxSearch.SearchResultSuggestion)
+  case reverseGeocodingFailed(reason: Swift.Error, options: MapboxSearch.ReverseGeocodingOptions)
+}
+extension MapboxSearch.SearchError : Swift.Equatable {
+  public static func == (lhs: MapboxSearch.SearchError, rhs: MapboxSearch.SearchError) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class SearchOfflineManager {
+  public var tileStore: MapboxSearch.SearchTileStore {
+    get
+  }
+  public func setTileStore(_ tileStore: MapboxSearch.SearchTileStore, completion: (() -> Swift.Void)? = nil)
+  public func setTileStore(_ tileStore: MapboxCommon.TileStore, accessToken: Swift.String, completion: (() -> Swift.Void)? = nil)
+  public static func createTilesetDescriptor(dataset: Swift.String, version: Swift.String? = nil) -> MapboxCommon.TilesetDescriptor
+  public static func createPlacesTilesetDescriptor(dataset: Swift.String, version: Swift.String? = nil) -> MapboxCommon.TilesetDescriptor
+  public static func createDefaultTilesetDescriptor() -> MapboxCommon.TilesetDescriptor
+  public static func createDefaultPlacesTilesetDescriptor() -> MapboxCommon.TilesetDescriptor
+  @objc deinit
+}
+public protocol SearchResult {
+  var id: Swift.String { get }
+  var name: Swift.String { get }
+  var iconName: Swift.String? { get }
+  var serverIndex: Swift.Int? { get }
+  var accuracy: MapboxSearch.SearchResultAccuracy? { get }
+  var type: MapboxSearch.SearchResultType { get }
+  var coordinate: CoreLocation.CLLocationCoordinate2D { get }
+  var matchingName: Swift.String? { get }
+  var address: MapboxSearch.Address? { get }
+  var descriptionText: Swift.String? { get }
+  var categories: [Swift.String]? { get }
+  var routablePoints: [MapboxSearch.RoutablePoint]? { get }
+  var searchRequest: MapboxSearch.SearchRequestOptions { get }
+  var placemark: MapKit.MKPlacemark { get }
+  var estimatedTime: Foundation.Measurement<Foundation.UnitDuration>? { get }
+  var metadata: MapboxSearch.SearchResultMetadata? { get }
+}
+extension MapboxSearch.SearchResult {
+  public var placemark: MapKit.MKPlacemark {
+    get
+  }
+}
+public struct RouteOptions : Swift.Hashable {
+  public enum Deviation : Swift.Hashable {
+    public enum SARType : Swift.CaseIterable {
+      case isochrone
+      case none
+      public static func == (a: MapboxSearch.RouteOptions.Deviation.SARType, b: MapboxSearch.RouteOptions.Deviation.SARType) -> Swift.Bool
+      public func hash(into hasher: inout Swift.Hasher)
+      public typealias AllCases = [MapboxSearch.RouteOptions.Deviation.SARType]
+      public static var allCases: [MapboxSearch.RouteOptions.Deviation.SARType] {
+        get
+      }
+      public var hashValue: Swift.Int {
+        get
+      }
+    }
+    case time(Foundation.Measurement<Foundation.UnitDuration>, MapboxSearch.RouteOptions.Deviation.SARType)
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: MapboxSearch.RouteOptions.Deviation, b: MapboxSearch.RouteOptions.Deviation) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public let route: MapboxSearch.Route
+  public let deviation: MapboxSearch.RouteOptions.Deviation
+  public init(route: MapboxSearch.Route, deviation: MapboxSearch.RouteOptions.Deviation)
+  public init(route: MapboxSearch.Route, time: Foundation.TimeInterval, sarType: MapboxSearch.RouteOptions.Deviation.SARType = .isochrone)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.RouteOptions, b: MapboxSearch.RouteOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct SearchOptions {
+  public var countries: [Swift.String]?
+  public var languages: [Swift.String]
+  public var limit: Swift.Int?
+  public var fuzzyMatch: Swift.Bool?
+  public var proximity: CoreLocation.CLLocationCoordinate2D?
+  public var boundingBox: MapboxSearch.BoundingBox?
+  public var origin: CoreLocation.CLLocationCoordinate2D?
+  public var navigationOptions: MapboxSearch.SearchNavigationOptions?
+  public var routeOptions: MapboxSearch.RouteOptions?
+  public var filterTypes: [MapboxSearch.SearchQueryType]?
+  public var ignoreIndexableRecords: Swift.Bool
+  public var indexableRecordsDistanceThreshold: CoreLocation.CLLocationDistance?
+  public var unsafeParameters: [Swift.String : Swift.String]?
+  public var locale: Foundation.Locale?
+  public init(countries: [Swift.String]? = nil, languages: [Swift.String]? = nil, limit: Swift.Int? = nil, fuzzyMatch: Swift.Bool? = nil, proximity: CoreLocation.CLLocationCoordinate2D? = nil, boundingBox: MapboxSearch.BoundingBox? = nil, origin: CoreLocation.CLLocationCoordinate2D? = nil, navigationOptions: MapboxSearch.SearchNavigationOptions? = nil, routeOptions: MapboxSearch.RouteOptions? = nil, filterTypes: [MapboxSearch.SearchQueryType]? = nil, ignoreIndexableRecords: Swift.Bool = false, indexableRecordsDistanceThreshold: CoreLocation.CLLocationDistance? = nil, unsafeParameters: [Swift.String : Swift.String]? = nil)
+  public init(proximity: CoreLocation.CLLocationCoordinate2D, origin: CoreLocation.CLLocationCoordinate2D? = nil, limit: Swift.Int? = nil)
+  public init(boundingBox: MapboxSearch.BoundingBox, origin: CoreLocation.CLLocationCoordinate2D? = nil, limit: Swift.Int? = nil)
+  public init(navigationOptions: MapboxSearch.SearchNavigationOptions, origin: CoreLocation.CLLocationCoordinate2D? = nil)
+  public init(routeOptions: MapboxSearch.RouteOptions)
+  public var defaultDebounce: Swift.Double
+}
+public enum OpenHours : Swift.Codable, Swift.Hashable {
+  case alwaysOpened
+  case temporarilyClosed
+  case permanentlyClosed
+  case scheduled(periods: [MapboxSearch.OpenPeriod])
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.OpenHours, b: MapboxSearch.OpenHours) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class PlaceAutocomplete {
+  convenience public init(accessToken: Swift.String? = nil, locationProvider: MapboxSearch.LocationProvider? = DefaultLocationProvider())
+  @objc deinit
+}
+extension MapboxSearch.PlaceAutocomplete {
+  final public func suggestions(for query: Swift.String, region: MapboxSearch.BoundingBox? = nil, proximity: CoreLocation.CLLocationCoordinate2D? = nil, filterBy options: MapboxSearch.PlaceAutocomplete.Options = .init(), completion: @escaping (Swift.Result<[MapboxSearch.PlaceAutocomplete.Suggestion], Swift.Error>) -> Swift.Void)
+  final public func suggestions(for query: CoreLocation.CLLocationCoordinate2D, filterBy options: MapboxSearch.PlaceAutocomplete.Options = .init(), completion: @escaping (Swift.Result<[MapboxSearch.PlaceAutocomplete.Suggestion], Swift.Error>) -> Swift.Void)
+  final public func select(suggestion: MapboxSearch.PlaceAutocomplete.Suggestion, completion: @escaping (Swift.Result<MapboxSearch.PlaceAutocomplete.Result, Swift.Error>) -> Swift.Void)
+}
+public enum Maki : Swift.String, Swift.CaseIterable, Swift.Codable {
+  case aerialway
+  case airfield
+  case airport
+  case alcoholShop
+  case americanFootball
+  case amusementPark
+  case aquarium
+  case arrow
+  case artGallery
+  case attraction
+  case bakery
+  case bankJp
+  case bank
+  case bar
+  case barrier
+  case baseball
+  case basketball
+  case bbq
+  case beach
+  case beer
+  case bicycleShare
+  case bicycle
+  case bloodBank
+  case bowlingAlley
+  case bridge
+  case buildingAlt1
+  case building
+  case bus
+  case cafe
+  case campsite
+  case carRental
+  case carRepair
+  case car
+  case casino
+  case castleJp
+  case castle
+  case caution
+  case cemeteryJp
+  case cemetery
+  case chargingStation
+  case cinema
+  case circleStroked
+  case circle
+  case city
+  case clothingStore
+  case collegeJp
+  case college
+  case commercial
+  case communicationsTower
+  case confectionery
+  case construction
+  case convenience
+  case cricket
+  case cross
+  case dam
+  case danger
+  case defibrillator
+  case dentist
+  case diamond
+  case doctor
+  case dogPark
+  case drinkingWater
+  case elevator
+  case embassy
+  case emergencyPhone
+  case entranceAlt1
+  case entrance
+  case farm
+  case fastFood
+  case fence
+  case ferryJp
+  case ferry
+  case fireStationJp
+  case fireStation
+  case fitnessCentre
+  case florist
+  case fuel
+  case furniture
+  case gaming
+  case gardenCentre
+  case garden
+  case gift
+  case globe
+  case golf
+  case grocery
+  case hairdresser
+  case harbor
+  case hardware
+  case heart
+  case heliport
+  case highwayRestArea
+  case home
+  case horseRiding
+  case hospitalJp
+  case hospital
+  case hotSpring
+  case iceCream
+  case industry
+  case information
+  case jewelryStore
+  case karaoke
+  case landmarkJp
+  case landmark
+  case landuse
+  case laundry
+  case library
+  case lighthouseJp
+  case lighthouse
+  case lodging
+  case logging
+  case markerStroked
+  case marker
+  case mobilePhone
+  case monumentJp
+  case monument
+  case mountain
+  case museum
+  case music
+  case natural
+  case observationTower
+  case optician
+  case paint
+  case parkAlt1
+  case park
+  case parkingGarage
+  case parking
+  case pharmacy
+  case picnicSite
+  case pitch
+  case placeOfWorship
+  case playground
+  case policeJp
+  case police
+  case postJp
+  case post
+  case prison
+  case racetrackBoat
+  case racetrackCycling
+  case racetrackHorse
+  case racetrack
+  case railLight
+  case railMetro
+  case rail
+  case rangerStation
+  case recycling
+  case religiousBuddhist
+  case religiousChristian
+  case religiousJewish
+  case religiousMuslim
+  case religiousShinto
+  case residentialCommunity
+  case restaurantBbq
+  case restaurantNoodle
+  case restaurantPizza
+  case restaurantSeafood
+  case restaurantSushi
+  case restaurant
+  case roadAccident
+  case roadblock
+  case rocket
+  case schoolJp
+  case school
+  case scooter
+  case shelter
+  case shoe
+  case shop
+  case skateboard
+  case skiing
+  case slaughterhouse
+  case slipway
+  case snowmobile
+  case soccer
+  case squareStroked
+  case square
+  case stadium
+  case starStroked
+  case star
+  case suitcase
+  case swimming
+  case tableTennis
+  case teahouse
+  case telephone
+  case tennis
+  case theatre
+  case toilet
+  case townHall
+  case town
+  case triangleStroked
+  case triangle
+  case veterinary
+  case viewpoint
+  case village
+  case volcano
+  case volleyball
+  case warehouse
+  case wasteBasket
+  case watch
+  case water
+  case waterfall
+  case watermill
+  case wetland
+  case wheelchair
+  case windmill
+  case zoo
+  public var name: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [MapboxSearch.Maki]
+  public typealias RawValue = Swift.String
+  public static var allCases: [MapboxSearch.Maki] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol RecordsProviderInteractor {
+  var providerIdentifier: Swift.String { get }
+  func add(record: MapboxSearch.IndexableRecord)
+  func add(records: [MapboxSearch.IndexableRecord])
+  func delete(identifier: Swift.String)
+  func delete(identifiers: [Swift.String])
+  func update(record: MapboxSearch.IndexableRecord)
+  func deleteAll()
+}
+public struct Address : Swift.Codable, Swift.Hashable {
+  public var houseNumber: Swift.String?
+  public var street: Swift.String?
+  public var neighborhood: Swift.String?
+  public var locality: Swift.String?
+  public var postcode: Swift.String?
+  public var place: Swift.String?
+  public var district: Swift.String?
+  public var region: Swift.String?
+  public var country: Swift.String?
+  public var postalAddress: Contacts.CNPostalAddress {
+    get
+  }
+  public static var empty: MapboxSearch.Address {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.Address, b: MapboxSearch.Address) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearch.Address {
+  public enum AddressFormatStyle {
+    case short
+    case medium
+    case long
+    case full
+    case custom(components: [Swift.KeyPath<MapboxSearch.Address, Swift.String?>])
+  }
+  public func formattedAddress(style: MapboxSearch.Address.AddressFormatStyle) -> Swift.String?
+}
+public enum SearchResultAccuracy : Swift.String, Swift.Codable {
+  case approximate
+  case interpolated
+  case intersection
+  case parcel
+  case point
+  case rooftop
+  case street
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct AddressComponents {
+  public let houseNumber: Swift.String?
+  public let street: Swift.String?
+  public let neighborhood: Swift.String?
+  public let locality: Swift.String?
+  public let postcode: Swift.String?
+  public let place: Swift.String?
+  public let district: Swift.String?
+  public let region: Swift.String?
+  public let country: Swift.String?
+  public let countryISO1: Swift.String?
+  public let countryISO2: Swift.String?
+}
+extension MapboxSearch.AddressComponents {
+  public var postalAddress: Contacts.CNPostalAddress {
+    get
+  }
+}
+extension MapboxSearch.AddressComponents {
+  public enum FormatStyle {
+    case short
+    case medium
+    case long
+    case full
+    case custom(components: [Swift.KeyPath<MapboxSearch.AddressComponents, Swift.String?>])
+  }
+  public func formattedAddress(style: MapboxSearch.AddressComponents.FormatStyle) -> Swift.String?
+}
+public protocol SearchResultSuggestion : MapboxSearch.SearchSuggestion {
+  var dataLayerIdentifier: Swift.String { get }
+}
+extension MapboxSearch.AddressAutofill {
+  public struct Query {
+    public enum Requirements {
+      public static let queryLength: Swift.UInt
+    }
+    public let value: Swift.String
+    public init?(value: Swift.String)
+  }
+}
+public struct RoutablePoint : Swift.Codable, Swift.Hashable {
+  public var point: CoreLocation.CLLocationCoordinate2D {
+    get
+  }
+  public let name: Swift.String
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.RoutablePoint, b: MapboxSearch.RoutablePoint) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class EventsManager : ObjectiveC.NSObject {
+  public func reportError(_ error: Swift.Error)
+  public func reportError(_ error: MapboxSearch.SearchError)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum SearchResultType : Swift.Codable, Swift.Hashable {
+  case address(subtypes: [MapboxSearch.SearchAddressType])
+  case POI
+  public var addressSubtypes: [MapboxSearch.SearchAddressType]? {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.SearchResultType, b: MapboxSearch.SearchResultType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class Discover {
+  convenience public init(accessToken: Swift.String? = nil, locationProvider: MapboxSearch.LocationProvider? = DefaultLocationProvider())
+  @objc deinit
+}
+extension MapboxSearch.Discover {
+  final public func search(for query: MapboxSearch.Discover.Query, proximity: CoreLocation.CLLocationCoordinate2D, options: MapboxSearch.Discover.Options = .init(), completion: @escaping (Swift.Result<[MapboxSearch.Discover.Result], Swift.Error>) -> Swift.Void)
+  final public func search(for query: MapboxSearch.Discover.Query, in region: MapboxSearch.BoundingBox, proximity: CoreLocation.CLLocationCoordinate2D? = nil, options: MapboxSearch.Discover.Options = .init(), completion: @escaping (Swift.Result<[MapboxSearch.Discover.Result], Swift.Error>) -> Swift.Void)
+  final public func search(for query: MapboxSearch.Discover.Query, route: MapboxSearch.RouteOptions, options: MapboxSearch.Discover.Options = .init(), completion: @escaping (Swift.Result<[MapboxSearch.Discover.Result], Swift.Error>) -> Swift.Void)
+}
+extension MapboxSearch.PlaceAutocomplete {
+  public struct Suggestion {
+    public let name: Swift.String
+    public let description: Swift.String?
+    public let coordinate: CoreLocation.CLLocationCoordinate2D
+    public let iconName: Swift.String?
+    public let distance: CoreLocation.CLLocationDistance?
+    public let estimatedTime: Foundation.Measurement<Foundation.UnitDuration>?
+    public let placeType: MapboxSearch.SearchResultType
+    public let categories: [Swift.String]
+    public let routablePoints: [MapboxSearch.RoutablePoint]
+  }
+}
+public struct ReverseGeocodingOptions {
+  public enum Mode : Swift.Int {
+    case distance
+    case score
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public var point: CoreLocation.CLLocationCoordinate2D
+  public var mode: MapboxSearch.ReverseGeocodingOptions.Mode?
+  public var limit: Swift.Int?
+  public var types: [MapboxSearch.SearchQueryType]?
+  public var countries: [Swift.String]?
+  public var languages: [Swift.String]
+  public init(point: CoreLocation.CLLocationCoordinate2D, mode: MapboxSearch.ReverseGeocodingOptions.Mode? = nil, limit: Swift.Int? = nil, types: [MapboxSearch.SearchQueryType]? = nil, countries: [Swift.String]? = nil, languages: [Swift.String]? = nil)
+}
+public struct NonEmptyArray<T> {
+  public let first: T
+  public let others: [T]
+  public var all: [T] {
+    get
+  }
+  public init(first: T, others: [T])
+}
+public struct FavoriteRecord : MapboxSearch.IndexableRecord, MapboxSearch.SearchResult, Swift.Codable, Swift.Equatable {
+  public let id: Swift.String
+  public var name: Swift.String
+  public var matchingName: Swift.String?
+  public var descriptionText: Swift.String? {
+    get
+  }
+  public var coordinate: CoreLocation.CLLocationCoordinate2D {
+    get
+  }
+  public var address: MapboxSearch.Address?
+  public var icon: MapboxSearch.Maki?
+  public let serverIndex: Swift.Int?
+  public let accuracy: MapboxSearch.SearchResultAccuracy?
+  public var iconName: Swift.String?
+  public var categories: [Swift.String]?
+  public var routablePoints: [MapboxSearch.RoutablePoint]?
+  public var type: MapboxSearch.SearchResultType
+  public var additionalTokens: Swift.Set<Swift.String>?
+  public var estimatedTime: Foundation.Measurement<Foundation.UnitDuration>?
+  public let searchRequest: MapboxSearch.SearchRequestOptions
+  public var metadata: MapboxSearch.SearchResultMetadata?
+  public init(id: Swift.String? = nil, name: Swift.String, matchingName: Swift.String?, coordinate: CoreLocation.CLLocationCoordinate2D, address: MapboxSearch.Address?, makiIcon: MapboxSearch.Maki?, serverIndex: Swift.Int?, accuracy: MapboxSearch.SearchResultAccuracy?, categories: [Swift.String]?, routablePoints: [MapboxSearch.RoutablePoint]? = nil, resultType: MapboxSearch.SearchResultType, searchRequest: MapboxSearch.SearchRequestOptions, metadata: MapboxSearch.SearchResultMetadata? = nil)
+  public init(id: Swift.String? = nil, name: Swift.String, searchResult: MapboxSearch.SearchResult)
+  public static func == (a: MapboxSearch.FavoriteRecord, b: MapboxSearch.FavoriteRecord) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public class DefaultLocationProvider {
+  public init(locationManager: CoreLocation.CLLocationManager)
+  convenience public init(distanceFilter: CoreLocation.CLLocationDistance = 100, desiredAccuracy: CoreLocation.CLLocationAccuracy = kCLLocationAccuracyHundredMeters, activityType: CoreLocation.CLActivityType = .other)
+  @objc deinit
+}
+extension MapboxSearch.DefaultLocationProvider : MapboxSearch.LocationProvider {
+  public func currentLocation() -> CoreLocation.CLLocationCoordinate2D?
+}
+extension MapboxCommon.TileRegionLoadOptions {
+  public static func build(geometry: MapboxCommon.Geometry?, descriptors: [MapboxCommon.TilesetDescriptor]?, metadata: Any? = nil, acceptExpired: Swift.Bool = false, networkRestriction: MapboxCommon.NetworkRestriction = .none, averageBytesPerSecond: Swift.Int? = nil) -> MapboxCommon.TileRegionLoadOptions?
+}
+public protocol SearchSuggestion {
+  var id: Swift.String { get }
+  var name: Swift.String { get }
+  var serverIndex: Swift.Int? { get }
+  var descriptionText: Swift.String? { get }
+  var categories: [Swift.String]? { get }
+  var address: MapboxSearch.Address? { get }
+  var iconName: Swift.String? { get }
+  var suggestionType: MapboxSearch.SearchSuggestType { get }
+  var searchRequest: MapboxSearch.SearchRequestOptions { get }
+  var distance: CoreLocation.CLLocationDistance? { get }
+  var batchResolveSupported: Swift.Bool { get }
+}
+public struct OpenPeriod : Swift.Codable, Swift.Hashable {
+  public let start: Foundation.DateComponents
+  public let end: Foundation.DateComponents
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: MapboxSearch.OpenPeriod, b: MapboxSearch.OpenPeriod) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+extension MapboxSearch.Language {
+  public enum ISO639_1 : Swift.String, Swift.CaseIterable {
+    case ab
+    case aa
+    case af
+    case ak
+    case sq
+    case am
+    case ar
+    case an
+    case hy
+    case `as`
+    case av
+    case ae
+    case ay
+    case az
+    case bm
+    case ba
+    case eu
+    case be
+    case bn
+    case bh
+    case bi
+    case bs
+    case br
+    case bg
+    case my
+    case ca
+    case ch
+    case ce
+    case ny
+    case zh
+    case cv
+    case kw
+    case co
+    case cr
+    case hr
+    case cs
+    case da
+    case dv
+    case nl
+    case dz
+    case en
+    case eo
+    case et
+    case ee
+    case fo
+    case fj
+    case fi
+    case fr
+    case ff
+    case gl
+    case ka
+    case de
+    case el
+    case gn
+    case gu
+    case ht
+    case ha
+    case he
+    case hz
+    case hi
+    case ho
+    case hu
+    case ia
+    case id
+    case ie
+    case ga
+    case ig
+    case ik
+    case io
+    case `is`
+    case it
+    case iu
+    case ja
+    case jv
+    case kl
+    case kn
+    case kr
+    case ks
+    case kk
+    case km
+    case ki
+    case rw
+    case ky
+    case kv
+    case kg
+    case ko
+    case ku
+    case kj
+    case la
+    case lb
+    case lg
+    case li
+    case ln
+    case lo
+    case lt
+    case lu
+    case lv
+    case gv
+    case mk
+    case mg
+    case ms
+    case ml
+    case mt
+    case mi
+    case mr
+    case mh
+    case mn
+    case na
+    case nv
+    case nd
+    case ne
+    case ng
+    case nb
+    case nn
+    case no
+    case ii
+    case nr
+    case oc
+    case oj
+    case cu
+    case om
+    case or
+    case os
+    case pa
+    case pi
+    case fa
+    case pox
+    case pl
+    case ps
+    case pt
+    case qu
+    case rm
+    case rn
+    case ro
+    case ru
+    case sa
+    case sc
+    case sd
+    case se
+    case sm
+    case sg
+    case sr
+    case gd
+    case sn
+    case si
+    case sk
+    case sl
+    case so
+    case st
+    case es
+    case su
+    case sw
+    case ss
+    case sv
+    case ta
+    case te
+    case tg
+    case th
+    case ti
+    case bo
+    case tk
+    case tl
+    case tn
+    case to
+    case tr
+    case ts
+    case tt
+    case tw
+    case ty
+    case ug
+    case uk
+    case ur
+    case uz
+    case ve
+    case vi
+    case vo
+    case wa
+    case cy
+    case wo
+    case fy
+    case xh
+    case yi
+    case yo
+    case za
+    case zu
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [MapboxSearch.Language.ISO639_1]
+    public typealias RawValue = Swift.String
+    public static var allCases: [MapboxSearch.Language.ISO639_1] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+}
+public let mapboxSearchSDKVersion: Swift.String
+public protocol LocationProvider {
+  func currentLocation() -> CoreLocation.CLLocationCoordinate2D?
+}
+open class PointLocationProvider : MapboxSearch.LocationProvider {
+  final public let coordinate: CoreLocation.CLLocationCoordinate2D
+  public init(coordinate: CoreLocation.CLLocationCoordinate2D)
+  public func currentLocation() -> CoreLocation.CLLocationCoordinate2D?
+  @objc deinit
+}
+extension MapboxSearch.SearchQueryType : Swift.Equatable {}
+extension MapboxSearch.SearchQueryType : Swift.Hashable {}
+extension MapboxSearch.HistoryRecord.HistoryType : Swift.Equatable {}
+extension MapboxSearch.HistoryRecord.HistoryType : Swift.Hashable {}
+extension MapboxSearch.HistoryRecord.HistoryType : Swift.RawRepresentable {}
+extension MapboxSearch.SearchNavigationOptions.ETAType : Swift.Equatable {}
+extension MapboxSearch.SearchNavigationOptions.ETAType : Swift.Hashable {}
+extension MapboxSearch.SearchAddressType : Swift.RawRepresentable {}
+extension MapboxSearch.SearchEngine.OfflineMode : Swift.Equatable {}
+extension MapboxSearch.SearchEngine.OfflineMode : Swift.Hashable {}
+extension MapboxSearch.FeedbackEvent.Reason : Swift.Equatable {}
+extension MapboxSearch.FeedbackEvent.Reason : Swift.Hashable {}
+extension MapboxSearch.FeedbackEvent.Reason : Swift.RawRepresentable {}
+extension MapboxSearch.LogCategory : Swift.Equatable {}
+extension MapboxSearch.LogCategory : Swift.Hashable {}
+extension MapboxSearch.LoggerLevel : Swift.Hashable {}
+extension MapboxSearch.AddressAutofill.AddressComponent.Kind : Swift.RawRepresentable {}
+extension MapboxSearch.RouteOptions.Deviation.SARType : Swift.Equatable {}
+extension MapboxSearch.RouteOptions.Deviation.SARType : Swift.Hashable {}
+extension MapboxSearch.Maki : Swift.Equatable {}
+extension MapboxSearch.Maki : Swift.Hashable {}
+extension MapboxSearch.Maki : Swift.RawRepresentable {}
+extension MapboxSearch.SearchResultAccuracy : Swift.Equatable {}
+extension MapboxSearch.SearchResultAccuracy : Swift.Hashable {}
+extension MapboxSearch.SearchResultAccuracy : Swift.RawRepresentable {}
+extension MapboxSearch.ReverseGeocodingOptions.Mode : Swift.Equatable {}
+extension MapboxSearch.ReverseGeocodingOptions.Mode : Swift.Hashable {}
+extension MapboxSearch.ReverseGeocodingOptions.Mode : Swift.RawRepresentable {}
+extension MapboxSearch.Language.ISO639_1 : Swift.Equatable {}
+extension MapboxSearch.Language.ISO639_1 : Swift.Hashable {}
+extension MapboxSearch.Language.ISO639_1 : Swift.RawRepresentable {}
