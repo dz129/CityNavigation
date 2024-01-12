@@ -15,6 +15,6 @@ import SwiftUI
 
 struct HomeView: View{
     var body: some View {
-            MapViewControllerRepresentable()
+        MapViewControllerRepresentable()
     }
 }

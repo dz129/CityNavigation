@@ -18,10 +18,25 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
     var navigationMapView: NavigationMapView!
     var routeOptions: NavigationRouteOptions?
     var routeResponse: RouteResponse?
+    var reportButton: UIButton?
     
     var beginAnnotation: PointAnnotation?
     
     let searchController = MapboxSearchController()
+    
+    fileprivate func setUpReportButton() {
+        let reportButton = UIButton()
+        reportButton.setTitle("Button", for: .normal)
+        reportButton.backgroundColor = .blue
+        reportButton.addTarget(self, action: #selector (reportButtonIsPressed), for: .touchUpInside)
+        view.addSubview(reportButton)
+        view.bringSubviewToFront(reportButton)
+        reportButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reportButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            reportButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +51,7 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         navigationMapView.addGestureRecognizer(longPress)
         //allows the width and height to be flexible so when you turn the device, it works
         view.addSubview(navigationMapView)
-        
+        setUpReportButton()
         navigationMapView.mapView.mapboxMap.onNext(event: .mapLoaded){
             [weak self] _ in
             guard let self = self else {return}
@@ -45,6 +60,15 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         searchController.delegate = self
         let panelController = MapboxPanelController(rootViewController: searchController)
         addChild(panelController)
+
+    }
+    @objc func reportButtonIsPressed(){
+        if let currPostion = navigationMapView.mapView.location.latestLocation?.coordinate {
+            createAnnotationPoint(coordinate: currPostion)
+        }
+        else{
+            print("error")
+        }
     }
     //user does a long press
     //@objc stands for objective c
