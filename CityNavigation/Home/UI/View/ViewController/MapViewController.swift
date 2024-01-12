@@ -37,11 +37,36 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
             reportButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    fileprivate func setUpGoNowButton(){
+        let reportButton = UIButton()
+        reportButton.setTitle("Go Now", for: .normal)
+        reportButton.backgroundColor = .green
+        reportButton.addTarget(self, action: #selector (goNowButtonIsPressed), for: .touchUpInside)
+        view.addSubview(reportButton)
+        view.bringSubviewToFront(reportButton)
+        reportButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reportButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            reportButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+        ])
+    }
+    fileprivate func setUpCancelButton(){
+        let reportButton = UIButton()
+        reportButton.setTitle("Cancel", for: .normal)
+        reportButton.backgroundColor = .red
+        reportButton.addTarget(self, action: #selector (cancelButtonIsPressed), for: .touchUpInside)
+        view.addSubview(reportButton)
+        view.bringSubviewToFront(reportButton)
+        reportButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            reportButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
+            reportButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -80)
+        ])
+    }
+    fileprivate func setupView() {
         //create a navigation map view with the size of the screen
         //you can also have a parameter that includes a custom theme from mapbox
+        removeAllSubviews()
         navigationMapView = NavigationMapView(frame: view.bounds)
         navigationMapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         navigationMapView.userLocationStyle = .puck2D()
@@ -60,6 +85,19 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         searchController.delegate = self
         let panelController = MapboxPanelController(rootViewController: searchController)
         addChild(panelController)
+    }
+    func removeAllSubviews() {
+        
+       // perform a loop to iterate each subView
+       view.subviews.forEach { subView in
+            
+       // removing subView from its parent view
+          subView.removeFromSuperview()
+       }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
 
     }
     @objc func reportButtonIsPressed(){
@@ -69,6 +107,16 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         else{
             print("error")
         }
+    }
+    @objc func goNowButtonIsPressed(){
+        let navigationViewController = NavigationViewController(for: routeResponse!, routeIndex: 0, routeOptions: routeOptions!)
+        navigationViewController.modalPresentationStyle = .fullScreen
+        self.present(navigationViewController, animated: true, completion: nil)
+        }
+    @objc func cancelButtonIsPressed(){
+        print("being pressed")
+        searchController.resetSearchUI(animated: true)
+        setupView()
     }
     //user does a long press
     //@objc stands for objective c
@@ -141,7 +189,17 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
     }
 }
 extension MapViewController: SearchControllerDelegate {
-    func searchResultSelected(_ searchResult: SearchResult) { }
+    func searchResultSelected(_ searchResult: SearchResult) {
+        if let currPostion = navigationMapView.mapView.location.latestLocation?.coordinate {
+            let searchCoordinate = searchResult.coordinate
+            calculateRoute(from: currPostion, to: searchCoordinate)
+            setUpCancelButton()
+            setUpGoNowButton()
+        }
+        else{
+            print("error")
+        }
+    }
     func categorySearchResultsReceived(category: MapboxSearchUI.SearchCategory, results: [SearchResult]) { }
     func userFavoriteSelected(_ userFavorite: FavoriteRecord) { }
 }

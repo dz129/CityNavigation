@@ -15,9 +15,9 @@ let searchController = MapboxSearchController()
  
 override func viewDidLoad() {
 super.viewDidLoad()
-searchController.delegate = self
-let panelController = MapboxPanelController(rootViewController: searchController)
-addChild(panelController)
+    searchController.delegate = self
+    let panelController = MapboxPanelController(rootViewController: searchController)
+    addChild(panelController)
 }
 }
  
