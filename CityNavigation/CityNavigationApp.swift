@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 @main
-struct CityNavigationApp: App {
-    var body: some Scene {
-        WindowGroup {
-            HomeView()
-        }
-    }
+class MyApp {
+    static func main() async {
+      let hrds = HomeRemoteDataSource()
+        await hrds.addMarker(coordinate: CLLocationCoordinate2D(latitude: 38.9072, longitude: 77.0369), markterType: "test")
+  }
 }

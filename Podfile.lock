@@ -1,4 +1,5 @@
 PODS:
+  - GeoFire/Utils (5.0.0)
   - MapboxCommon (23.8.6)
   - MapboxCoreMaps (10.16.4):
     - MapboxCommon (~> 23.8)
@@ -33,11 +34,13 @@ PODS:
   - Turf (2.6.1)
 
 DEPENDENCIES:
+  - GeoFire/Utils
   - MapboxNavigation (~> 2.17)
   - MapboxSearchUI (< 2.0, >= 1.0.0-rc.8)
 
 SPEC REPOS:
   trunk:
+    - GeoFire
     - MapboxCommon
     - MapboxCoreMaps
     - MapboxCoreNavigation
@@ -54,6 +57,7 @@ SPEC REPOS:
     - Turf
 
 SPEC CHECKSUMS:
+  GeoFire: a579ffdcdcf6fe74ef9efd7f887d4082598d6d1f
   MapboxCommon: 90f76693dc02438acbb5ea9a5b266a4c0eb1c875
   MapboxCoreMaps: 7b07d1ca8c454a4381daf09df901b9d6bf90bce0
   MapboxCoreNavigation: fb7967e584e1fb81060fe0b1380fb36781e71f5e
@@ -69,6 +73,6 @@ SPEC CHECKSUMS:
   Solar-dev: 4612dc9878b9fed2667d23b327f1d4e54e16e8d0
   Turf: 469ce2c3d22e5e8e4818d5a3b254699a5c89efa4
 
-PODFILE CHECKSUM: bf519a3f710dea540105fa09f11c8574a9d7fd79
+PODFILE CHECKSUM: 458368e1beb0c7a79494ff45fc9a35c3e06711fc
 
 COCOAPODS: 1.14.3

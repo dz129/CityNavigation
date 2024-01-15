@@ -176,6 +176,7 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxCoreNavigation/MapboxCoreNavigation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxDirections/MapboxDirections.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxMaps/MapboxMaps.framework"
@@ -192,6 +193,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/MapboxSearchUI/MapboxSearchUI.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxCoreNavigation/MapboxCoreNavigation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxDirections/MapboxDirections.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxMaps/MapboxMaps.framework"
