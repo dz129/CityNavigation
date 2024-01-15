@@ -24,11 +24,6 @@ class HomeRemoteDataSource{
         formatter.formatOptions.insert(.withFractionalSeconds)  // this is only available effective iOS 11 and macOS 10.13
         return formatter.string(from: date)
     }
-    func getDateObjectFromDateString(date: String) throws -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        return dateFormatter.date(from: date)!
-    }
     func addMarker(coordinate: CLLocationCoordinate2D, markterType: String) async{
         //need to add a comment section later
         let lat = coordinate.latitude
@@ -67,7 +62,8 @@ class HomeRemoteDataSource{
                 return distance <= radiusInMeters
         }
     }
-    func queryMarkersForRadiusInCenter(center: CLLocationCoordinate2D, radiusInMeters: Double) async{
+    func queryMarkersForRadiusInCenter(center: CLLocationCoordinate2D, radiusInMeters: Double) async -> [String: [String: Any]]{
+        var allData = [String: [String: Any]]()
         let queryBounds = GFUtils.queryBounds(forLocation: center, withRadius: radiusInMeters)
         let queries = queryBounds.map { bound -> Query in
             return db.collection("markers")
@@ -86,7 +82,6 @@ class HomeRemoteDataSource{
             for try await documents in group {
               matchingDocs.append(contentsOf: documents)
             }
-              var allData = [String: [String: Any]]()
 
               for document in matchingDocs {
                   // Extracting the document ID
@@ -97,16 +92,23 @@ class HomeRemoteDataSource{
                   
                   // Adding the data to the dictionary
                   allData[documentID] = data
+                  
+                  let dateTimeString = allData[documentID]?["dateTime"]
+                  //don't do this in the datasource layer, do this in domain
+                  /*
+                  do{
+                      try allData[documentID]?["dateTime"] = getDateObjectFromDateString(date: dateTimeString as! String)
+                  }
+                      let coordinate = CLLocationCoordinate2D(latitude: allData[documentID]?["lat"] as! CLLocationDegrees, longitude: allData[documentID]?["long"] as! CLLocationDegrees)
+                      allData[documentID]?["coordinate"] = coordinate
+                   */
               }
-              print(allData)
-            return allData
+              return allData
           }
-
-          print("Docs matching geoquery: \(matchingDocs)")
         } catch {
-          print("Unable to fetch snapshot data. \(error)")
+          //nothing
         }
-
+        return allData
     }
 }
 

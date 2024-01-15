@@ -29,6 +29,8 @@
 		A2B3F57C2B54B9C400B5F72F /* HomeRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3F57A2B54B9C400B5F72F /* HomeRemoteDataSource.swift */; };
 		A2B3F57D2B54B9C400B5F72F /* HomeRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3F57A2B54B9C400B5F72F /* HomeRemoteDataSource.swift */; };
 		A2B3F5892B54D1E400B5F72F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A2B3F5882B54D1E400B5F72F /* FirebaseFirestoreSwift */; };
+		A2B3F58C2B55842A00B5F72F /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3F58B2B55842A00B5F72F /* Marker.swift */; };
+		A2B3F58E2B5587CD00B5F72F /* HomeDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3F58D2B5587CD00B5F72F /* HomeDomain.swift */; };
 		CBBE3331E39BB0DE76E2C661 /* Pods_CityNavigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B44C703EAF23EDE20D732C9 /* Pods_CityNavigation.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,8 @@
 		A2B3F57A2B54B9C400B5F72F /* HomeRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRemoteDataSource.swift; sourceTree = "<group>"; };
 		A2B3F5822B54BFED00B5F72F /* GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B3F5862B54CF0100B5F72F /* Accessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accessibility.framework; path = System/Library/Frameworks/Accessibility.framework; sourceTree = SDKROOT; };
+		A2B3F58B2B55842A00B5F72F /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		A2B3F58D2B5587CD00B5F72F /* HomeDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDomain.swift; sourceTree = "<group>"; };
 		D759CB6FB082911090E94246 /* Pods-CityNavigation-CityNavigationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityNavigation-CityNavigationUITests.debug.xcconfig"; path = "Target Support Files/Pods-CityNavigation-CityNavigationUITests/Pods-CityNavigation-CityNavigationUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F784024A9DC38FD7FB60F08C /* Pods-CityNavigationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityNavigationTests.release.xcconfig"; path = "Target Support Files/Pods-CityNavigationTests/Pods-CityNavigationTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +256,8 @@
 		A2B3F5722B54B99200B5F72F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A2B3F58A2B5583E800B5F72F /* Model */,
+				A2B3F58D2B5587CD00B5F72F /* HomeDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -269,6 +275,14 @@
 			children = (
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		A2B3F58A2B5583E800B5F72F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A2B3F58B2B55842A00B5F72F /* Marker.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,7 +533,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2B3F5302B50EC4700B5F72F /* ContentView.swift in Sources */,
+				A2B3F58C2B55842A00B5F72F /* Marker.swift in Sources */,
 				A2B3F5762B54B9AE00B5F72F /* HomeDataSource.swift in Sources */,
+				A2B3F58E2B5587CD00B5F72F /* HomeDomain.swift in Sources */,
 				A2B3F5602B50ED5D00B5F72F /* SearchViewController.swift in Sources */,
 				A2B3F52E2B50EC4700B5F72F /* CityNavigationApp.swift in Sources */,
 				A2B3F57B2B54B9C400B5F72F /* HomeRemoteDataSource.swift in Sources */,
