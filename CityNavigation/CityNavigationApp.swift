@@ -12,6 +12,6 @@ import CoreLocation
 class MyApp {
     static func main() async {
       let hrds = HomeRemoteDataSource()
-        await hrds.addMarker(coordinate: CLLocationCoordinate2D(latitude: 38.9072, longitude: 77.0369), markterType: "test")
+        let data: () = await hrds.queryMarkersForRadiusInCenter(center: CLLocationCoordinate2D(latitude: 38.9072, longitude: 77.0369), radiusInMeters: 1000)
   }
 }

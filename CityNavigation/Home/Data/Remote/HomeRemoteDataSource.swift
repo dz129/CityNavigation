@@ -18,12 +18,23 @@ class HomeRemoteDataSource{
         FirebaseApp.configure()
         self.db = Firestore.firestore()
     }
+    func getDateString() -> String{
+        let date = Date()
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions.insert(.withFractionalSeconds)  // this is only available effective iOS 11 and macOS 10.13
+        return formatter.string(from: date)
+    }
+    func getDateObjectFromDateString(date: String) throws -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        return dateFormatter.date(from: date)!
+    }
     func addMarker(coordinate: CLLocationCoordinate2D, markterType: String) async{
         //need to add a comment section later
         let lat = coordinate.latitude
         let long = coordinate.longitude
         let hash = GFUtils.geoHash(forLocation: coordinate)
-        
+        let currentDateAndTimeString = getDateString()
         let documentData: [String: Any] = [
             "geohash" : hash,
             "markerType" : markterType,
@@ -31,6 +42,7 @@ class HomeRemoteDataSource{
             "long" : long,
             "yes" : 0,
             "no" : 0,
+            "dateTime" : currentDateAndTimeString
         ]
         do{
             let ref = try await db.collection("markers").addDocument(data: documentData)
@@ -43,10 +55,11 @@ class HomeRemoteDataSource{
         let snapshot = try await query.getDocuments()
         return snapshot.documents.filter{ document in
             let lat = document.data()["lat"] as? Double ?? 0
-            let long = document.data()["lat"] as? Double ?? 0
+            let long = document.data()["long"] as? Double ?? 0
             let markerType = document.data()["markerType"] ?? ""
             let yes = document.data()["yes"] ?? -1
             let no = document.data()["no"] ?? -1
+            let dateTime =  document.data()["dateTime"]
             let coordinates = CLLocation(latitude: lat, longitude: long)
             let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
             
@@ -63,7 +76,7 @@ class HomeRemoteDataSource{
                 .end(at: [bound.endValue])
         }
         do {
-          let matchingDocs = try await withThrowingTaskGroup(of: [QueryDocumentSnapshot].self) { group -> [QueryDocumentSnapshot] in
+          let matchingDocs = try await withThrowingTaskGroup(of: [QueryDocumentSnapshot].self) { group -> [String: [String: Any]] in
             for query in queries {
               group.addTask {
                   try await self.fetchMatchingDocs(from: query, center: center, radiusInMeters: radiusInMeters)
@@ -73,7 +86,20 @@ class HomeRemoteDataSource{
             for try await documents in group {
               matchingDocs.append(contentsOf: documents)
             }
-            return matchingDocs
+              var allData = [String: [String: Any]]()
+
+              for document in matchingDocs {
+                  // Extracting the document ID
+                  let documentID = document.documentID
+                  
+                  // Extracting data from the document
+                  let data = document.data()
+                  
+                  // Adding the data to the dictionary
+                  allData[documentID] = data
+              }
+              print(allData)
+            return allData
           }
 
           print("Docs matching geoquery: \(matchingDocs)")
