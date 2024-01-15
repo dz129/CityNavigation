@@ -1,3 +1,4 @@
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxCoreNavigation.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework
 ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMaps.framework
