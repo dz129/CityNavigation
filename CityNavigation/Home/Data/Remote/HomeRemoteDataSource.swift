@@ -18,18 +18,17 @@ class HomeRemoteDataSource{
         FirebaseApp.configure()
         self.db = Firestore.firestore()
     }
-    func getDateString() -> String{
-        let date = Date()
+    func getDateString(dateTime: Date) -> String{
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions.insert(.withFractionalSeconds)  // this is only available effective iOS 11 and macOS 10.13
-        return formatter.string(from: date)
+        return formatter.string(from: dateTime)
     }
-    func addMarker(coordinate: CLLocationCoordinate2D, markterType: String) async{
+    func addMarker(coordinate: CLLocationCoordinate2D, markterType: String, dateTime: Date) async{
         //need to add a comment section later
         let lat = coordinate.latitude
         let long = coordinate.longitude
         let hash = GFUtils.geoHash(forLocation: coordinate)
-        let currentDateAndTimeString = getDateString()
+        let currentDateAndTimeString = getDateString(dateTime: dateTime)
         let documentData: [String: Any] = [
             "geohash" : hash,
             "markerType" : markterType,

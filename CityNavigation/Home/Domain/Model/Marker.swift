@@ -16,7 +16,7 @@ struct Marker{
     let yes: Int
     let no: Int
     
-    init(dateTime: Date, geohash: String, coordinate: CLLocationCoordinate2D, markerType: String, yes: Int, no: Int) {
+    init(dateTime: Date, geohash: String = "undefined", coordinate: CLLocationCoordinate2D, markerType: String, yes: Int = -1, no: Int = -1) {
         self.dateTime = dateTime
         self.geohash = geohash
         self.coordinate = coordinate
