@@ -15,7 +15,9 @@ import CoreLocation
 class HomeRemoteDataSource{
     let db: Firestore
     init(){
-        FirebaseApp.configure()
+        if FirebaseApp.app() == nil{
+            FirebaseApp.configure()
+        }
         self.db = Firestore.firestore()
     }
     func getDateString(dateTime: Date) -> String{
@@ -81,7 +83,6 @@ class HomeRemoteDataSource{
             for try await documents in group {
               matchingDocs.append(contentsOf: documents)
             }
-
               for document in matchingDocs {
                   // Extracting the document ID
                   let documentID = document.documentID

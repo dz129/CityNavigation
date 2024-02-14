@@ -7,7 +7,7 @@
 		<key>CityNavigation.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>21</integer>
 		</dict>
 		<key>Promises (Playground) 1.xcscheme</key>
 		<dict>
@@ -29,6 +29,24 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A2B3F5292B50EC4700B5F72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2B3F5392B50EC4800B5F72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2B3F5432B50EC4800B5F72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
