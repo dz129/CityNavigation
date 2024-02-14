@@ -157,6 +157,12 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         let point = sender.location(in: navigationMapView)
         let coordinate = navigationMapView.mapView.mapboxMap.coordinate(for: point)
         createAnnotationPoint(coordinate: coordinate)
+        let date = Date()
+        let markerType = "LongPressTest"
+        let marker = Marker(dateTime: date, coordinate: coordinate, markerType: markerType)
+        Task{
+            await homeViewModel?.addMarker(marker: marker)
+        }
     }
     func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
         let origin = Waypoint(coordinate: origin, coordinateAccuracy: -1, name: "Start")
