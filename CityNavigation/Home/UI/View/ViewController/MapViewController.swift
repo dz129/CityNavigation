@@ -13,15 +13,16 @@ import MapboxDirections
 import MapboxSearch
 import MapboxSearchUI
 import SwiftUI
+import Combine
 
 class MapViewController : UIViewController, AnnotationInteractionDelegate{
     var navigationMapView: NavigationMapView!
     var routeOptions: NavigationRouteOptions?
     var routeResponse: RouteResponse?
     var reportButton: UIButton?
-    
+    var homeViewModel: HomeViewModel?
     var beginAnnotation: PointAnnotation?
-    
+    private var cancellables: Set<AnyCancellable> = []
     let searchController = MapboxSearchController()
     
     fileprivate func setUpReportButton() {
@@ -63,7 +64,7 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
             reportButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -80)
         ])
     }
-    fileprivate func setupView() {
+    fileprivate func setupView() async {
         //create a navigation map view with the size of the screen
         //you can also have a parameter that includes a custom theme from mapbox
         removeAllSubviews()
@@ -74,8 +75,12 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         //create a long press variable that is a long press recognizer with the target as the class itself and the action as the @objc function
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
         navigationMapView.addGestureRecognizer(longPress)
+        
         //allows the width and height to be flexible so when you turn the device, it works
         view.addSubview(navigationMapView)
+        homeViewModel = HomeViewModel(center: navigationMapView.mapView.mapboxMap.coordinate(for:navigationMapView.mapView.center), zoomLevel: navigationMapView.mapView.cameraState.zoom)
+        await homeViewModel?.getMarkersForZoomLevel()
+        bindViewModel()
         setUpReportButton()
         navigationMapView.mapView.mapboxMap.onNext(event: .mapLoaded){
             [weak self] _ in
@@ -85,6 +90,18 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         searchController.delegate = self
         let panelController = MapboxPanelController(rootViewController: searchController)
         addChild(panelController)
+    }
+    private func bindViewModel() {
+        homeViewModel!.$markers
+            .sink { [weak self] in self?.createMarkers(markers: $0) }
+            .store(in: &cancellables)
+    }
+    func createMarkers(markers: [String:Marker]){
+        print("beingrun")
+        for (_, value) in markers{
+            print(value)
+            createAnnotationPoint(coordinate: value.coordinate)
+        }
     }
     func removeAllSubviews() {
         
@@ -97,7 +114,9 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        Task {
+            await self.setupView()
+        }
 
     }
     @objc func reportButtonIsPressed(){
@@ -113,10 +132,10 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         navigationViewController.modalPresentationStyle = .fullScreen
         self.present(navigationViewController, animated: true, completion: nil)
         }
-    @objc func cancelButtonIsPressed(){
+    @objc func cancelButtonIsPressed() async{
         print("being pressed")
         searchController.resetSearchUI(animated: true)
-        setupView()
+        await setupView()
     }
     //user does a long press
     //@objc stands for objective c
@@ -138,6 +157,12 @@ class MapViewController : UIViewController, AnnotationInteractionDelegate{
         let point = sender.location(in: navigationMapView)
         let coordinate = navigationMapView.mapView.mapboxMap.coordinate(for: point)
         createAnnotationPoint(coordinate: coordinate)
+        let date = Date()
+        let markerType = "LongPressTest"
+        let marker = Marker(dateTime: date, coordinate: coordinate, markerType: markerType)
+        Task{
+            await homeViewModel?.addMarker(marker: marker)
+        }
     }
     func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
         let origin = Waypoint(coordinate: origin, coordinateAccuracy: -1, name: "Start")

@@ -7,11 +7,17 @@
 
 import SwiftUI
 import CoreLocation
+import Firebase
 
 @main
-class MyApp {
-    static func main() async {
-      let hrds = HomeDomain()
-        let data = await hrds.queryMarkersInRadius(center: CLLocationCoordinate2D(latitude: 38.9072, longitude: 77.0369), radiusInMeters: 1000)
-  }
+struct CityNavigationApp: App {
+    init(){
+        FirebaseApp.configure()
+    }
+    var body: some Scene {
+        WindowGroup {
+            HomeView()
+        }
+    }
 }
+

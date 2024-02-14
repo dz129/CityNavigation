@@ -24,10 +24,9 @@ class HomeDomain{
     func queryMarkersInRadius(center: CLLocationCoordinate2D, radiusInMeters: Double) async -> [String: Marker]{
         var Markers = [String: Marker]()
         var allData = await homeDataSource.queryMarkersForRadiusInCenter(center: center, radiusInMeters: radiusInMeters)
+        //change all this to a mapper function later
         for (documentID, _) in allData{
-            print(allData[documentID]!)
-            let dateTimeString = allData["89k6IVtlj7gM0yIQRj22"]!["dateTime"]
-            print(dateTimeString!)
+            let dateTimeString = allData[documentID]!["dateTime"]
             do{
                 try allData[documentID]!["dateTime"] = getDateObjectFromDateString(date: dateTimeString as! String)
             }
@@ -45,8 +44,10 @@ class HomeDomain{
             let marker = Marker(dateTime: dateTime, geohash: geohash, coordinate: coordinate, markerType: markerType, yes: yes, no: no)
             Markers[documentID] = marker
         }
-        print(Markers)
         return Markers
+    }
+    func addMarker(marker: Marker) async{
+        await homeDataSource.addMarker(coordinate: marker.coordinate, markerType: marker.markerType, dateTime: marker.dateTime)
     }
 }
 
